@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Member;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::oldest()->get();
-        return view('products.index', compact('products'));
+        $members = Member::oldest()->get();
+        return view('members.index', compact('members'));
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        return view('members.create');
     }
 
     /**
@@ -37,70 +37,70 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            //ここで入力必須のバリデート設定できる
             'name' => 'required',
-            'detail' => 'required',
+            'address' => 'required',
         ]);
 
-        Product::create($request->all());
+        Member::create($request->all());
 
-        return redirect()->route('products.index')
+        return redirect()->route('members.index')
             ->with('success', '新規作成しました。');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Member $member)
     {
-        return view('products.show', compact('product'));
+        return view('members.show', compact('member'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Member $member)
     {
-        // compactは受け渡し先の変数
-        return view('products.edit', compact('product'));
+        return view('members.edit', compact('member'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Member $member)
     {
         $request->validate([
             'name' => 'required',
             'detail' => 'required',
         ]);
 
-        $product->update($request->all());
+        $member->update($request->all());
 
-        return redirect()->route('products.index')
+        return redirect()->route('members.index')
             ->with('success', '更新しました。');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Member $member)
     {
-        $product->delete();
+        $member->delete();
 
-        return redirect()->route('products.index')
+        return redirect()->route('members.index')
             ->with('success', '削除しました。');
     }
 }
