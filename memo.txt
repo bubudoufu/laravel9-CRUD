@@ -1,0 +1,20 @@
+20230315
+現在
+
+apacheでlaravelのTOPページは表示されるが
+ルーティングができない。
+
+■試したこと
+➀httpd.confの適切な箇所に以下2行追記した。
+・AllowOverride All
+・LoadModule rewrite_module modules/mod_rewrite.so
+（mod_rewrite.soファイルが存在することも確認済）
+
+➁Documentrootをlaravelプロジェクトのpublicフォルダに設定して
+apache再起動して試したけが、やはりTOPページは表示されるが
+ルーティングができない。
+
+■懸念
+・ネットにはVartualHostの設定書けってあるけどよく分からなかったので
+これはやってない。
+・apache2.4を使っているから古すぎかも。。。
